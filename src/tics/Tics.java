@@ -91,7 +91,9 @@ public class Tics {
             int intervaux=-1;
             boolean paractm=false;
             double clientesmax=0;
-            for(int i=0;i<tiempo;i++){
+            int colamax=0;
+            int i=0;
+            while(i<tiempo){
                 int interv=i/t_inter;
                 double probclientes=0;
                 System.out.println("xddddddddddd "+distri[interv] );
@@ -125,7 +127,7 @@ public class Tics {
                     paractm=true;
                     System.out.println("AAAAAAAAAAAAAAAAHHHH");
                 }
-                if(Random<probclientes+10 && paractm==false){
+                if(Random<probclientes+2 && paractm==false){
                     
                    Persona cliente1=new Persona(1,10,30,1,1);
                    compranding.add(cliente1);
@@ -134,18 +136,19 @@ public class Tics {
                     
                 }
                 
-                restartiempocompra(compranding,c);
+                restartiempocompra(compranding,c,colamax);
                 clientes_despachados=restartiempocaja(c,clientes_despachados);
                 System.out.println("hay "+compranding.size()+" wns comprando");
+                i++;
             }
             System.out.println("Clientes despachados: "+clientes_despachados);
             System.out.println("Clientes ingresados: "+clientes_ingresados);
             System.out.println("Clientes comprando: "+compranding.size());
-            for(int i=0;i<c.size();i++){
-                System.out.println("Gente en caja "+i+" fue de "+c.get(i).size());
+            for(int x=0;x<c.size();x++){
+                System.out.println("Gente en caja "+x+" fue de "+c.get(x).size());
             }
         }
-    static void restartiempocompra(LinkedList<Persona> xd,LinkedList<Queue<Persona>> xd2){
+    static void restartiempocompra(LinkedList<Persona> xd,LinkedList<Queue<Persona>> xd2,int colamax){
         
         LinkedList<Integer> borrar=new LinkedList();
         for(int i=0;i<xd.size();i++){
@@ -157,6 +160,9 @@ public class Tics {
                 int pos=0;
                 for(int j=0;j<xd2.size();j++){
                     if(xd2.get(j).size()<menor){
+                        if(xd2.get(j).size()>colamax){
+                            colamax=xd2.get(j).size();
+                        }
                         menor=xd2.get(j).size();
                         pos=j;
                     }
